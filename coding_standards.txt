@@ -1,0 +1,119 @@
+
+
+Alcune semplici regole per scrivere insieme un codice leggibile.
+
+
+
+#	COMMENTO SU SINGOLA RIGA
+
+
+/**
+ *	COMMENTO SU PIU' RIGHE - 'TITOLO'
+ *
+ *	REGOLA GENERALE: è meglio scrivere un codice più leggibile che un codice
+ *	compatto e incomprensibile. Se necesssario, dividere in più parti lunghi
+ *	blocchi condizionali o array a n-livelli.
+ *
+ *	la codifica dei files deve essere ANSI o UTF-8 senza BOM
+ *	usare <?php invece di <?
+ *	se non necessario, non chiudere i files php con ?> per evitare output indesiderato
+ *
+ *	nei testi, usare {'} quando il testo non deve essere analizzato, altrimenti {"}
+ *		-	echo '<a href="/static/link" title="Yeah yeah!">Link name</a>';
+ *		-	echo "<a href='{$link}' title='$linktitle'>$linkname</a>";
+ *	usare i {tab} invece degli spazi per indentare
+ */
+
+
+
+SPAZI
+	sempre usare spazi dopo le virgole
+		-	array( 1, 2, 3 )
+		-	function( 1, 2, 3 )
+	sempre usare spazi prima e dopo condizioni booleane
+		-	foo && bar
+		-	if ( condition != condition2 )
+	sempre usare spazi prima e dopo stringe e assegnamenti
+		-	$foo = 5;
+		-	echo 'a' . $foo;
+	sempre usare spazi prima e dopo le parentesi in if, elseif, else, foreach, for, switch
+
+SPAZI NEGLI ARRAY
+	$x = $foo['bar'];
+	$x = $foo[ $bar ];			# spazi solo nel caso di variabili
+
+
+FUNZIONI
+	definizione:	function mia_funzione( $var1, $var2 = 'foo' ) { ...
+	chiamata:		mia_funzione( $var1 );
+
+CONDIZIONI BOOLEANE
+	come regola generale, è preferibile valutare logiche TRUE invece che FALSE.
+	come regola generale, le variabili dovrebbero essero essere al lato sinistro
+	if ( $foo ) { ...
+	if ( ! $foo ) { ...						# da usare se non ci sono conzioni else
+	if ( 'jazz' == $music ) { ...
+
+
+TYPE CASTING
+	$foo = (boolean) $bar;
+
+SQL
+	-	se necessario dividerli su più linee (indentando)
+	-	gli statement SQL vanno scritti in maiuscolo ( SELECT, UPDATE, WHERE, ... )
+
+
+NAMING
+	-	funzioni e variabili in minuscolo, parole_separate_da_underscore ( no camelCase! )
+	-	evitare abbreviazioni non necessarie per dimimuire ambiguità
+	-	i nomi delle classi vanno scritti con le iniziali maiuscole ( class Mia_Classe extends Classe_Madre )
+	-	i nomi dei files vanno scritti in minuscolo, parole-separate-da-trattini
+	-	i nomi dei files contententi le classi devono avere il prefisso class-
+
+PARAMETRI DELLE FUNZIONI
+	-	scegliere nomi attinenti al significato aiuta ad evitare confusione
+			function eat( $var = TRUE ) { ...			#		che è $var ???
+			function eat( $slow = TRUE ) { ...
+
+HTML
+	-	valgono le regole di HTML5
+
+
+
+function nome_della_funzione( $var, $var2, $var3 = array() ){
+
+	$my_array = array(
+		'x'{tab}=> 'y',
+		'foo'	=> 'somevalue',
+		'foo2'	=> 'somevalue2',
+		'foo3'	=> 'somevalue3',
+		'foo34'	=> 'somevalue3',
+	);
+
+
+	if ( condition ) {
+		action1();
+		action2();
+	} elseif ( condition2 && condition3 ) {
+		action3();
+		action4();
+	} else {
+		defaultaction();
+	}
+
+
+	#	in caso di azioni singole si possono omettere le parentesi
+	if ( condition )
+		action1();
+	elseif ( condition2 && condition3 )
+		action2();
+	else
+		action3();
+
+
+	#	i LOOP dovrebbero sempre avere le parentesi
+	foreach ( $items as $item ) {
+		process_item( $item );
+	}
+
+}
