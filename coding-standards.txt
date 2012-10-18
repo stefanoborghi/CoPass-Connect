@@ -33,9 +33,9 @@ SPAZI
 	sempre usare spazi prima e dopo condizioni booleane
 		-	foo && bar
 		-	if ( condition != condition2 )
-	sempre usare spazi prima e dopo stringe e assegnamenti
-		-	$foo = 5;
+	sempre usare spazi prima e dopo stringhe e assegnazioni
 		-	echo 'a' . $foo;
+		-	$foo = 5;
 	sempre usare spazi prima e dopo le parentesi in if, elseif, else, foreach, for, switch
 
 SPAZI NEGLI ARRAY
@@ -48,20 +48,22 @@ FUNZIONI
 	chiamata:		mia_funzione( $var1 );
 
 CONDIZIONI BOOLEANE
-	come regola generale, è preferibile valutare logiche TRUE invece che FALSE.
-	come regola generale, le variabili dovrebbero essero essere al lato sinistro
-	per assegnare un valore logico ad una variabile utilizzare quanto piu' possibile l'operatore ternario
-	if ( $foo ) { ...
-	if ( ! $foo ) { ...						# da usare se non ci sono conzioni else
-	if ( 'jazz' == $music ) { ...
-	
-	$foo = $bar ? 1 : 0;						# migliore, piu' leggibile di
-	if( $bar ){
-		$foo = 1;
-	}else{
-		$foo = 0;
-	}
+	if ( $foo ) { ...						#	è preferibile verificare una condizione TRUE rispetto ad una FALSE
+	if ( ! $foo ) { ...						#	eccezioni possibili: da usare se non ci sono conzioni {else}
+	if ( 'jazz' == $music ) { ...			#	si evitano errori di tipo {=/==}, es:  if ( $music = 'jazz' ) { ...
 
+	L'operatore ternario è consigliato per una migliore leggibilità.
+		es. in assegnazione variabili:
+			CORRETTO		:	$foo = $bar ? 1 : 0;
+			NON CORRETTO	:	if( $bar ){
+									$foo = 1;
+								}else{
+									$foo = 0;
+								}
+		es. per lunghi statement:
+			echo ( $foo == $bar )
+				?	{statement_molto_lungo_per_condizione_verificata}
+				:	{statement_molto_lungo_per_condizione_non_verificata};
 
 TYPE CASTING
 	$foo = (boolean) $bar;
@@ -84,8 +86,11 @@ PARAMETRI DELLE FUNZIONI
 			function eat( $slow = TRUE ) { ...
 
 HTML
-	-	valgono le regole di HTML5
+	-	valgono le regole di HTML 5
 
+JAVASCRIPT
+	-	le librerie jQuery sono preferibili alle altre MooTools, script.aculo.us, Prototype ...
+	-	quando possibile, il codice javascript va incluso a fine pagina invece che nell'head
 
 
 function nome_della_funzione( $var, $var2, $var3 = array() ){
@@ -102,10 +107,12 @@ function nome_della_funzione( $var, $var2, $var3 = array() ){
 	if ( condition ) {
 		action1();
 		action2();
-	} elseif ( condition2 && condition3 ) {
+	}
+	elseif ( condition2 && condition3 ) {
 		action3();
 		action4();
-	} else {
+	}
+	else {
 		defaultaction();
 	}
 
