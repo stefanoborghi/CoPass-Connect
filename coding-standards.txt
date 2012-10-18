@@ -50,9 +50,17 @@ FUNZIONI
 CONDIZIONI BOOLEANE
 	come regola generale, è preferibile valutare logiche TRUE invece che FALSE.
 	come regola generale, le variabili dovrebbero essero essere al lato sinistro
+	per assegnare un valore logico ad una variabile utilizzare quanto piu' possibile l'operatore ternario
 	if ( $foo ) { ...
 	if ( ! $foo ) { ...						# da usare se non ci sono conzioni else
 	if ( 'jazz' == $music ) { ...
+	
+	$foo = $bar ? 1 : 0;						# migliore, piu' leggibile di
+	if( $bar ){
+		$foo = 1;
+	}else{
+		$foo = 0;
+	}
 
 
 TYPE CASTING
