@@ -91,6 +91,19 @@ HTML
 JAVASCRIPT
 	-	le librerie jQuery sono preferibili alle altre MooTools, script.aculo.us, Prototype ...
 	-	quando possibile, il codice javascript va incluso a fine pagina invece che nell'head
+	-	quando possibile, se necessario modellare concetti con javascript, utilizzare OOP creando classi e metodi di classe tramite prototype
+		questo aiuta il porting del codice rispetto a funzioni a se stanti e slegate, e la possibilità di racchiudere tutto il codice JS in un
+		unico file potendolo comprimere e risparmiando chiamate HTTP
+	-	terminare le righe con ;								#putroppo in javascript non e' una pratica comune
+	-	qualora si creino metodi di classe ricordarsi che alla fine dell'ultima parentesi } va posto un ; altrimenti ci potrebbero essere errori
+			es.
+				var foo_object = function(){
+						this.bar = true;
+						this.init();
+				};
+				foo_object.prototype.init = function() {
+					console.log( this.bar );
+				};
 
 
 function nome_della_funzione( $var, $var2, $var3 = array() ){
