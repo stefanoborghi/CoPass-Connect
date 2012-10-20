@@ -16,7 +16,7 @@ require_once( DIR_LIBRARY	.	'/KLogger.php' );
 /* CLASSI INTEFACCIA DATABASE */
 require_once( DIR_DATABASE	.	'/database.class.php' );
 require_once( DIR_DATABASE	.	'/object.abstract.php' );
-$object_database = new database(DB_USER, DB_PASS, DB_HOST,DB_NAME, database::TYPE_MYSQL);
+
 //ENTITIES
 require_once( DIR_DATABASE	.	'/skeleton.entity.php' );
 
