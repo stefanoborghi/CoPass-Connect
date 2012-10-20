@@ -49,6 +49,12 @@ class cc_site extends Entity_Object
 	}
 	
 	public function get(){
-	
+		if(isset($id)){
+		
+		
+		}
+		else{
+			$this->toLog("Errore in cc_site::get:".$query." - id is empty", KLogger::ERROR);
+		}
 	}
 }
