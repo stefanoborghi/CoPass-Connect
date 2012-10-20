@@ -5,8 +5,6 @@ require_once( 'config.php' );				#	configurazione del sito
 require_once( 'include.php' );				#	funzioni e classi
 require_once( 'starter.php' );				#	controllo UAC - NON IMPLEMENTATO
 
-
-
 #■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 #	NAVIGATOR
 #
@@ -15,20 +13,14 @@ require_once( 'starter.php' );				#	controllo UAC - NON IMPLEMENTATO
 #	Il file *deve* essere presente - nel caso limite, è vuoto.
 #▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬□
 
-$page_slug	= ( isset( $_REQUEST['p'] ) )
+$page	= ( isset( $_REQUEST['p'] ) )
 	?	sanitize_slug( $_REQUEST['p'] )
 	:	DEFAULT_PAGE;
 
 include_once( DIR_CONTENT . '/navigator.php' );
-set_navigator( $page_slug );
+set_navigator( $page );
 
-include( $HTML->navigator );
+( $error404 )
+	?	include( "{$base}/" . FALLBACK_PAGE . '.php' )
+	:	include( "{$base}/page-{$page}.php" );
 
-
-#■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-#	CHIUSURA
-#
-#	nell'azione 'sunset' si possono inserire tutte le funzioni che necessitano
-#	di essere eseguite alla fine dell'esecuzione.
-#▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬□
-do_action( 'sunset' );
