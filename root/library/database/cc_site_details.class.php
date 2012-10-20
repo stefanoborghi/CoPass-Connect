@@ -46,7 +46,8 @@ class cc_site extends Entity_Object
 		$this->status=$status;
 		
 		if(!isset($id)){
-			$query = "INSERT INTO ".self::TABLE_NAME." (tba_user_account_id, name, fiscal_id, fiscal_id_type, address, status) VALUES (:tba_user_account_id, :name, :fiscal_id, :fiscal_id_type, :address, :status);"
+			$query = "INSERT INTO ".self::TABLE_NAME." (tba_user_account_id, name, fiscal_id, fiscal_id_type, address, status) 
+						VALUES (:tba_user_account_id, :name, :fiscal_id, :fiscal_id_type, :address, :status);"
 			$stpdo=$this->database->mypdo->prepare($query);
 			$stpdo->bindParam(':tba_user_account_id', $tba_user_account_id, PDO::PARAM_INT);
 			$stpdo->bindParam(':name', $name, PDO::PARAM_VARCHAR);
@@ -67,18 +68,36 @@ class cc_site extends Entity_Object
 	
 	public function get($id){
 		if(isset($id)){	
-			$query = "SELECT * FROM ".self::TABLE_NAME.";
+			$query = "SELECT * FROM ".self::TABLE_NAME." WHERE id=:id;";
 			$stpdo = $this->database->mypdo->prepare($query);
-			$stpdo->bindParam(':id', $id_table, PDO::PARAM_INT);
+			$stpdo->bindParam(':id', $id, PDO::PARAM_INT);
 			$stpdo->execute();
 		
 			$arrcode = $stpdo->errorInfo();
-			if($arrcode[0] == $this->transaction_ok){//query ok
+			if($arrcode[0] == $this->transaction_ok){ //query ok
 				$row = $stpdo->fetch(PDO::FETCH_ASSOC);
 			return $row;			
 		}
 		else{
 			$this->toLog("Errore in cc_site::get:".$query." - id is empty", KLogger::ERROR);
+		}
+	}
+	
+	public function getparam($param,$val){
+		if(isset($id)){	
+			$query = "SELECT * FROM ".self::TABLE_NAME." WHERE :param=:val;";
+			$stpdo = $this->database->mypdo->prepare($query);
+			$stpdo->bindParam(':param', $param, PDO::PARAM_VARCHAR);
+			$stpdo->bindParam(':val', $val, PDO::PARAM_VARCHAR);
+			$stpdo->execute();
+		
+			$arrcode = $stpdo->errorInfo();
+			if($arrcode[0] == $this->transaction_ok){ //query ok
+				$array = $stpdo->fetchall(PDO::FETCH_ASSOC);
+			return $array;			
+		}
+		else{
+			$this->toLog("Errore in cc_site::getparam:".$query." - id is empty", KLogger::ERROR);
 		}
 	}
 }
