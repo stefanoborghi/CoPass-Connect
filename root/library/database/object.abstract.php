@@ -8,6 +8,11 @@
  */
 abstract class Entity_Object {
 	
+	/**
+	 * Identifica l'ok di una transaction
+	 */
+	var $transaction_ok = '00000';
+	
 	/******
     * To Log mathod inherit from interface
 	* @author fefoweb
@@ -22,13 +27,13 @@ abstract class Entity_Object {
 		}
 		
 		switch ($type){
-			case 'error':
+			case KLogger::ERROR:
 				$logger->LogError($message);
 				break;
-			case 'warning':
+			case KLogger::WARN:
 				$logger->LogWarn($message);
 				break;
-			case 'info':
+			case KLogger::INFO:
 				$logger->LogInfo($message);
 				break;
 		}

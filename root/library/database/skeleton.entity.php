@@ -8,11 +8,12 @@
  */
 class skeleton extends Entity_Object
 {
+	var $database = NULL;
 	/* VARIABILI DI CLASSE */
 	var $prova = NULL;
-	var $database = NULL;
 	
 	/* COSTANTI */
+	const TABLE_NAME = 'table_name';
 	
 	/******
     * Costruttore di classe
@@ -31,17 +32,18 @@ class skeleton extends Entity_Object
 	* @access public
 	*/
 	public function fakeMethod($id_table){
-		$query = "SELECT * FROM table WHERE id=:id";
-		$stpdo = $this->mypdo->prepare($query);
-		$stpdo = $this->mypdo->prepare($query);
+		$query = "SELECT * FROM ".self::TABLE_NAME." WHERE id=:id";
+		$stpdo = $this->database->mypdo->prepare($query);
 		$stpdo->bindParam(':id', $id_table, PDO::PARAM_INT);
+		$stpdo->execute();
 		
 		$arrcode = $stpdo->errorInfo();
 		if($arrcode[0] == $this->transaction_ok){//query ok
-				$row = $stpdo->fetchAll(PDO::FETCH_ASSOC);
+				$row = $stpdo->fetch(PDO::FETCH_ASSOC);
+				echo("aaaa");
 				return $row;
 		}else{
-			$this->toLog("Errore in skeleton::fakeMethod - query: ".$query." - param: ".$id_table);
+			$this->toLog("Errore in skeleton::fakeMethod - query: ".$query." - param: ".$id_table, KLogger::ERROR);
 		}
 	}
 }

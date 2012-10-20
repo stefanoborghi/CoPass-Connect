@@ -25,16 +25,15 @@ class database
 	* @return
 	*/
 	public function __construct($u, $p, $h, $db, $type){
-		global $_DB;
 		/* istanzio un oggetto PDO per l'astrazione dal DB */
 		switch($type){
-			case TYPE_MYSQL:
+			case self::TYPE_MYSQL:
 				$dns = "mysql:host=".$h.";dbname=".$db;
 			break;
-			case TYPE_MYSQLI:
+			case self::TYPE_MYSQLI:
 				$dns = "mysql:host=".$h.";dbname=".$db;
 			break;
-			case TYPE_SQLITE:
+			case self::TYPE_MYSQLI:
 				$dns = "sqlite:".$db.".sqlite";	
 			break;
 			default:

@@ -7,6 +7,12 @@
 #▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬□
 
 #■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+#	ENVIRONMENT
+#▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬□
+
+define( 'ENVIRONMENT', 'test' );                                                    #   ENVIRONMENT prod-test
+
+#■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 #	PATHs ( finiscono senza la / finale )
 #▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬□
 
@@ -14,18 +20,17 @@ define( 'ABSPATH',			dirname( __FILE__ ) );									#	PRODUCTION #	__DIR__ if ph
 define( 'DIR_ADMIN',		ABSPATH . '/admin' );
 define( 'DIR_CONTENT',		ABSPATH . '/content' );
 define( 'DIR_LIBRARY',		ABSPATH . '/library' );
+define( 'DIR_DATABASE',		DIR_LIBRARY . '/database' );
 
 define( 'DIR_THEME',		DIR_CONTENT . '/theme' );
-define( 'DIR_PIECES',		DIR_CONTENT . '/pieces' );
-define( 'DIR_MODULES',		DIR_CONTENT . '/modules' );
-define( 'DIR_PROTECTED',	DIR_CONTENT . '/protected' );
+define( 'DIR_LOG',	        DIR_CONTENT . '/log' );
 
 
 #■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 #	URLs ( finiscono con la / finale )
 #▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬□
 
-define( 'URL_HOME',		'http://localhost/cms/' );
+define( 'URL_HOME',		'http://localhost/git.repository/CoPass-Connect/root/' );
 define( 'URL_ADMIN',	URL_HOME	. 'admin/' );
 define( 'URL_CONTENT',	URL_HOME	. 'content/' );
 
@@ -43,28 +48,20 @@ define( 'DEFAULT_PAGE',		'home' );
 define( 'FALLBACK_PAGE',	'404' );
 
 define( 'DEFAULT_LANG',			'it' );
-define( 'DEFAULT_CHARSET',		'<meta charset="UTF-8" />' );
-define( 'DEFAULT_AUTHOR',		'Nicola Scotti di Uccio' );
+define( 'DEFAULT_CHARSET',		'UTF-8' );
+define( 'DEFAULT_AUTHOR',		'' );
 define( 'DEFAULT_DESCRIPTION',	'' );
 define( 'DEFAULT_KEYWORDS',		'' );
 
 
 #■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 #	SQL SETTINGS
-#
-#	la classe HTML istanzia il database in $HTMl->db
-#	MYSQL
-#		define( 'DB_TYPE', 'MySQL' );
-#		define( 'DB_NAME', 'CMS' );
-#		define( 'DB_USER', 'root' );
-#		define( 'DB_PASS', 'usbw' );
-#		define( 'DB_HOST', '127.0.0.1' );
-#
-#	SQLite
-#		define( 'DB_TYPE', 'SQLite' );
-#		define( 'DB_FILE', DIR_PROTECTED . '/database.db' );
 #▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬□
 
-define( 'DB_TYPE', 'SQLite' );
-define( 'DB_FILE', DIR_PROTECTED . '/database.db' );
+define( 'DB_TYPE', 'MySQL' );   #NON MODIFICARE
+
+define( 'DB_NAME', '' );        #INSERIRE VALORI ALL'OCCORRENZA
+define( 'DB_USER', '' );
+define( 'DB_PASS', '' );
+define( 'DB_HOST', '' );
 
