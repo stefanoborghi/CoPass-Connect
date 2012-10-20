@@ -1,3 +1,4 @@
+<?php global $HTML; ?>
 <!DOCTYPE html>
 <html lang='<?php echo $HTML->head['lang']; ?>'>
 <head>
@@ -19,6 +20,7 @@
 </head>
 
 <body>
+
 	<?php include( 'navbar.php' ); ?>
 
 	<header class="container">
