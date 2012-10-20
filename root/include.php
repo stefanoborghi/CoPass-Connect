@@ -14,4 +14,6 @@
 
 require_once( DIR_LIBRARY	.	'/sanitize.php' );
 require_once( DIR_LIBRARY	.	'/navigator.php' );
+require_once( DIR_LIBRARY	.	'/template.php' );
+
 

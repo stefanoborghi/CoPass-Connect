@@ -1,22 +1,36 @@
 <?php
 
 #■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-#	NAVIGAZIONE SULLE PAGINE DEL SITO
+#	NAVIGAZIONE SUL SITO
 #
-#	serve per richiamare delle funzioni al caricamento di particolari pagine
-#	non è necessario se non si richiedono controlli personalizzati sulle pagine
+#	Imposta la variabile globale $page, legata a $_REQUEST['p'] o in caso alla
+#	variabile DEFAULT_PAGE
 #
-#	tip: spaziare le pagine da un breakline
+#	Tramite uno switch è possibile eseguire delle funzioni prima del
+#	caricamento delle pagine. Eventualmente si può anche cambiare la pagina
+#	di destinazione tramite la funzione set_navigator( 'nuova_pagina' ); E'
+#	opportuno separare le pagine nello switch da un breakline.
+#
+#	Non è necessario includere tutte le pagine nello switch.
+#
+#	La funzione finale set_navigator( $page ) controlla l'esistenza del file
+#	richiesto e eventualmente imposta l'errore $error404;
 #
 #■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
+
+$page = ( isset( $_REQUEST['p'] ) )
+	?	sanitize_slug( $_REQUEST['p'] )
+	:	DEFAULT_PAGE;
+
 switch( $page ){
 
-		case 'pagina_di_esempio' :
-			#	codice da eseguire, es: if ( ! not_logged() ) set_navigator( 'errore_autenticazione' );
-			break;
+	case 'pagina_di_esempio' :
+		#	codice da eseguire, es: if ( ! not_logged() ) set_navigator( 'errore_autenticazione' );
+		break;
 
-		default:
-			break;
-	}
+	default:
+		break;
+}
 
+set_navigator( $page );
