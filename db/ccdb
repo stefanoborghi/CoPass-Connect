@@ -1,0 +1,238 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+CREATE SCHEMA IF NOT EXISTS `ccdb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
+USE `ccdb` ;
+
+-- -----------------------------------------------------
+-- Table `ccdb`.`tba_user_account`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ccdb`.`tba_user_account` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `email` VARCHAR(45) NOT NULL COMMENT 'Email for account login' ,
+  `pwd` VARCHAR(256) NOT NULL COMMENT 'Password' ,
+  `status` VARCHAR(256) NOT NULL COMMENT 'Account status : enable,disable,suspended' ,
+  `name` VARCHAR(256) NOT NULL COMMENT 'Account label name' ,
+  `surname` VARCHAR(256) NOT NULL ,
+  `idcard` VARCHAR(100) NOT NULL ,
+  `id_card_type` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = 'Application login account';
+
+
+-- -----------------------------------------------------
+-- Table `ccdb`.`tba_user_profile`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ccdb`.`tba_user_profile` (
+  `tba_user_profile_type_id` INT NOT NULL ,
+  `tba_user_account_id` INT NOT NULL ,
+  INDEX `fk_tba_user_profile_tba_user_account1_idx` (`tba_user_account_id` ASC) ,
+  INDEX `idx_tba_user_profile_01` (`tba_user_profile_type_id` ASC, `tba_user_account_id` ASC) ,
+  CONSTRAINT `fk_tba_user_profile_tba_user_account1`
+    FOREIGN KEY (`tba_user_account_id` )
+    REFERENCES `ccdb`.`tba_user_account` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = 'User profile\nUser profile';
+
+
+-- -----------------------------------------------------
+-- Table `ccdb`.`tba_user_details`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ccdb`.`tba_user_details` (
+  `tba_user_account_id` INT NOT NULL ,
+  `label` VARCHAR(256) NOT NULL ,
+  `value` VARCHAR(150) NOT NULL ,
+  `priority` VARCHAR(256) NULL ,
+  INDEX `fk_tba_user_details_tba_user_account1_idx` (`tba_user_account_id` ASC) ,
+  UNIQUE INDEX `value_UNIQUE` (`value` ASC) ,
+  CONSTRAINT `fk_tba_user_details_tba_user_account1`
+    FOREIGN KEY (`tba_user_account_id` )
+    REFERENCES `ccdb`.`tba_user_account` (`id` )
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = 'User details';
+
+
+-- -----------------------------------------------------
+-- Table `ccdb`.`tba_cowo_site`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ccdb`.`tba_cowo_site` (
+  `id` INT NOT NULL ,
+  `tba_user_account_id` INT NOT NULL COMMENT 'Admin cowo id' ,
+  `name` VARCHAR(45) NOT NULL ,
+  `fiscal_id` VARCHAR(45) NOT NULL ,
+  `fiscal_id_type` VARCHAR(45) NOT NULL ,
+  `address` VARCHAR(45) NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_tba_cowo_site_tba_user_account1_idx` (`tba_user_account_id` ASC) ,
+  UNIQUE INDEX `tba_user_account_id_UNIQUE` (`tba_user_account_id` ASC) ,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) ,
+  CONSTRAINT `fk_tba_cowo_site_tba_user_account1`
+    FOREIGN KEY (`tba_user_account_id` )
+    REFERENCES `ccdb`.`tba_user_account` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = 'Cowo site';
+
+
+-- -----------------------------------------------------
+-- Table `ccdb`.`tba_cowo_site_details`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ccdb`.`tba_cowo_site_details` (
+  `tba_cowo_site_id` INT NOT NULL ,
+  `label` VARCHAR(256) NOT NULL ,
+  `value` VARCHAR(150) NOT NULL ,
+  `priority` INT NULL COMMENT 'Order' ,
+  INDEX `fk_tba_cowo_details_tba_cowo_site1_idx` (`tba_cowo_site_id` ASC) ,
+  UNIQUE INDEX `value_UNIQUE` (`value` ASC) ,
+  CONSTRAINT `fk_tba_cowo_details_tba_cowo_site1`
+    FOREIGN KEY (`tba_cowo_site_id` )
+    REFERENCES `ccdb`.`tba_cowo_site` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `ccdb`.`tba_cards`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ccdb`.`tba_cards` (
+  `id` VARCHAR(20) NOT NULL ,
+  `tba_cowo_site_id_generator` INT NOT NULL COMMENT 'Id del cowo site che ha emesso la carta' ,
+  `tba_cowo_site_id_owner` INT NOT NULL COMMENT 'id del site che ha il possesso della carta' ,
+  `credits_amount` INT NULL ,
+  `card_type` VARCHAR(45) NOT NULL COMMENT 'tipo di carta virtuale' ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_tba_cards_tba_cowo_site1_idx` (`tba_cowo_site_id_generator` ASC) ,
+  INDEX `fk_tba_cards_tba_cowo_site2_idx` (`tba_cowo_site_id_owner` ASC) ,
+  CONSTRAINT `fk_tba_cards_tba_cowo_site1`
+    FOREIGN KEY (`tba_cowo_site_id_generator` )
+    REFERENCES `ccdb`.`tba_cowo_site` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tba_cards_tba_cowo_site2`
+    FOREIGN KEY (`tba_cowo_site_id_owner` )
+    REFERENCES `ccdb`.`tba_cowo_site` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = 'Coworker virtual cards';
+
+
+-- -----------------------------------------------------
+-- Table `ccdb`.`tba_transactions_types`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ccdb`.`tba_transactions_types` (
+  `id` INT NOT NULL ,
+  `name` VARCHAR(256) NOT NULL ,
+  `description` TINYTEXT NOT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = 'Transaction types';
+
+
+-- -----------------------------------------------------
+-- Table `ccdb`.`tba_transactions_log`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ccdb`.`tba_transactions_log` (
+  `tba_transactions_types_id` INT NOT NULL ,
+  `tba_cowo_site_id_start` INT NOT NULL COMMENT 'site id che esegue la transazione' ,
+  `tba_cards_id` VARCHAR(256) NOT NULL ,
+  `credits` INT NOT NULL ,
+  `sysdate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `tba_cowo_site_id_end` INT NOT NULL COMMENT 'site id dell\\\'owner della carta' ,
+  INDEX `fk_tba_transactions_log_tba_transactions_types1_idx` (`tba_transactions_types_id` ASC) ,
+  INDEX `fk_tba_transactions_log_tba_cowo_site1_idx` (`tba_cowo_site_id_start` ASC) ,
+  INDEX `fk_tba_transactions_log_tba_cards1_idx` (`tba_cards_id` ASC) ,
+  INDEX `fk_tba_transactions_log_tba_cowo_site2_idx` (`tba_cowo_site_id_end` ASC) ,
+  CONSTRAINT `fk_tba_transactions_log_tba_transactions_types1`
+    FOREIGN KEY (`tba_transactions_types_id` )
+    REFERENCES `ccdb`.`tba_transactions_types` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tba_transactions_log_tba_cowo_site1`
+    FOREIGN KEY (`tba_cowo_site_id_start` )
+    REFERENCES `ccdb`.`tba_cowo_site` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tba_transactions_log_tba_cards1`
+    FOREIGN KEY (`tba_cards_id` )
+    REFERENCES `ccdb`.`tba_cards` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tba_transactions_log_tba_cowo_site2`
+    FOREIGN KEY (`tba_cowo_site_id_end` )
+    REFERENCES `ccdb`.`tba_cowo_site` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = 'Transactions';
+
+
+-- -----------------------------------------------------
+-- Table `ccdb`.`tba_parameters`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ccdb`.`tba_parameters` (
+  `id` INT NOT NULL COMMENT 'Fax,phone,website ...' ,
+  `name` VARCHAR(150) NOT NULL ,
+  `type` VARCHAR(45) NOT NULL COMMENT 'label,parameter ...' ,
+  `description` VARCHAR(256) NULL ,
+  `value` TINYTEXT NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `ccdb`.`tba_cards_has_tba_user_account`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ccdb`.`tba_cards_has_tba_user_account` (
+  `tba_cards_id` VARCHAR(20) NOT NULL ,
+  `tba_user_account_id` INT NOT NULL ,
+  PRIMARY KEY (`tba_cards_id`, `tba_user_account_id`) ,
+  INDEX `fk_tba_cards_has_tba_user_account_tba_user_account1_idx` (`tba_user_account_id` ASC) ,
+  INDEX `fk_tba_cards_has_tba_user_account_tba_cards1_idx` (`tba_cards_id` ASC) ,
+  CONSTRAINT `fk_tba_cards_has_tba_user_account_tba_cards1`
+    FOREIGN KEY (`tba_cards_id` )
+    REFERENCES `ccdb`.`tba_cards` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tba_cards_has_tba_user_account_tba_user_account1`
+    FOREIGN KEY (`tba_user_account_id` )
+    REFERENCES `ccdb`.`tba_user_account` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
