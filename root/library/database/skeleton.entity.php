@@ -40,7 +40,6 @@ class skeleton extends Entity_Object
 		$arrcode = $stpdo->errorInfo();
 		if($arrcode[0] == $this->transaction_ok){//query ok
 				$row = $stpdo->fetch(PDO::FETCH_ASSOC);
-				echo("aaaa");
 				return $row;
 		}else{
 			$this->toLog("Errore in skeleton::fakeMethod - query: ".$query." - param: ".$id_table, KLogger::ERROR);
