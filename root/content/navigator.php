@@ -13,17 +13,16 @@
 #
 #	Non è necessario includere tutte le pagine nello switch.
 #
-#	La funzione finale set_navigator( $page ) controlla l'esistenza del file
+#	La funzione finale set_navigator() controlla l'esistenza del file
 #	richiesto e eventualmente imposta l'errore $error404;
 #
 #■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
-
-$page = ( isset( $_REQUEST['p'] ) )
+$HTML->page = ( isset( $_REQUEST['p'] ) )
 	?	sanitize_slug( $_REQUEST['p'] )
 	:	DEFAULT_PAGE;
 
-switch( $page ){
+switch( $HTML->page ){
 
 	case 'pagina_di_esempio' :
 		#	codice da eseguire, es: if ( ! not_logged() ) set_navigator( 'errore_autenticazione' );
@@ -33,4 +32,4 @@ switch( $page ){
 		break;
 }
 
-set_navigator( $page );
+set_navigator();

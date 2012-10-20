@@ -25,7 +25,7 @@ define( 'DIR_PROTECTED',	DIR_CONTENT . '/protected' );
 #	URLs ( finiscono con la / finale )
 #▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬□
 
-define( 'URL_HOME',		'http://localhost/cms/' );
+define( 'URL_HOME',		$_SERVER['REQUEST_URI'] );
 define( 'URL_ADMIN',	URL_HOME	. 'admin/' );
 define( 'URL_CONTENT',	URL_HOME	. 'content/' );
 
