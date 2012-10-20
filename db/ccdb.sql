@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 20, 2012 at 04:51 PM
+-- Generation Time: Oct 20, 2012 at 05:48 PM
 -- Server version: 5.5.24
 -- PHP Version: 5.3.10-1ubuntu3.4
 
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `tba_parameters` (
   `value` tinytext NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='All parameter like types and label' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -111,32 +111,20 @@ CREATE TABLE IF NOT EXISTS `tba_parameters` (
 --
 
 CREATE TABLE IF NOT EXISTS `tba_transactions_log` (
+  `id` varchar(45) NOT NULL,
   `tba_cards_id` varchar(20) NOT NULL,
   `tba_cc_site_id_start` int(11) NOT NULL,
-  `tba_transactions_types_id` int(11) NOT NULL,
-  `tba_cc_site_id_end` int(11) NOT NULL,
+  `tba_transactions_type` varchar(100) NOT NULL,
+  `tba_cc_site_id_end` int(11) NOT NULL COMMENT 'card cc_site owner',
   `credits` int(11) NOT NULL,
   `sysdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` varchar(100) NOT NULL,
-  `card_owner` int(11) NOT NULL COMMENT 'tmp card owner',
-  KEY `fk_tba_transactions_log_tba_transactions_types1_idx` (`tba_transactions_types_id`),
+  PRIMARY KEY (`id`),
   KEY `fk_tba_transactions_log_tba_cards1_idx` (`tba_cards_id`),
   KEY `fk_tba_transactions_log_tba_cc_site1_idx` (`tba_cc_site_id_start`),
-  KEY `fk_tba_transactions_log_tba_cc_site2_idx` (`tba_cc_site_id_end`)
+  KEY `fk_tba_transactions_log_tba_cc_site2_idx` (`tba_cc_site_id_end`),
+  KEY `idx_tba_transaction_log_transaction_type` (`tba_transactions_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Transactions';
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tba_transactions_types`
---
-
-CREATE TABLE IF NOT EXISTS `tba_transactions_types` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(256) NOT NULL,
-  `description` tinytext NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Transaction types' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -208,9 +196,8 @@ ALTER TABLE `tba_cc_site_details`
 --
 ALTER TABLE `tba_transactions_log`
   ADD CONSTRAINT `fk_tba_transactions_log_tba_cc_site1` FOREIGN KEY (`tba_cc_site_id_start`) REFERENCES `tba_cc_site` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tba_transactions_log_tba_cc_site2` FOREIGN KEY (`tba_cc_site_id_end`) REFERENCES `tba_cc_site` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_tba_transactions_log_tba_cards1` FOREIGN KEY (`tba_cards_id`) REFERENCES `tba_cards` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tba_transactions_log_tba_transactions_types1` FOREIGN KEY (`tba_transactions_types_id`) REFERENCES `tba_transactions_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_tba_transactions_log_tba_cc_site2` FOREIGN KEY (`tba_cc_site_id_end`) REFERENCES `tba_cc_site` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `tba_user_details`
