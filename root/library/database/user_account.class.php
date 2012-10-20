@@ -72,4 +72,22 @@ class user_account extends Entity_OBject
 			$this->toLog("error in user_account::get - query: ".$query." - param: ".$id." $id is not set.", KLogger::ERROR);
 		}
 	}
+	
+	public function getparam($param,$val){
+		if(isset($id)){	
+			$query = "SELECT * FROM ".self::TABLE_NAME." WHERE :param=:val;";
+			$stpdo = $this->database->mypdo->prepare($query);
+			$stpdo->bindParam(':param', $param, PDO::PARAM_VARCHAR);
+			$stpdo->bindParam(':val', $val, PDO::PARAM_VARCHAR);
+			$stpdo->execute();
+		
+			$arrcode = $stpdo->errorInfo();
+			if($arrcode[0] == $this->transaction_ok){ //query ok
+				$array = $stpdo->fetchall(PDO::FETCH_ASSOC);
+			return $array;			
+		}
+		else{
+			$this->toLog("error in user_account::getparam:".$query." - id is empty", KLogger::ERROR);
+		}
+	}
 }
