@@ -30,7 +30,8 @@ define( 'DIR_LOG',	        DIR_CONTENT . '/log' );
 #	URLs ( finiscono con la / finale )
 #▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬□
 
-define( 'URL_HOME',		'http://localhost/git.repository/CoPass-Connect/root/' );
+
+define( 'URL_HOME',		$_SERVER['REQUEST_URI'] );
 define( 'URL_ADMIN',	URL_HOME	. 'admin/' );
 define( 'URL_CONTENT',	URL_HOME	. 'content/' );
 

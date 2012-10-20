@@ -5,13 +5,20 @@
 #	contiene le funzioni utili alla gestione della navigazione sul sito
 #■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■□
 
-function set_navigator( $new_page = NULL, $base = DIR_THEME ){
-	global $page, $error404;
+function set_navigator( $page = NULL, $base = DIR_THEME ){
 
-	if ( $new_page )
-		$page = sanitize_slug( $new_page );
+	global $HTML;
 
-	$error404 = ( file_exists( "{$base}/page-{$page}.php" ) )
-		?	FALSE
-		:	TRUE;
+	if ( $page )
+		$HTML->page = sanitize_slug( $page );
+
+	if ( file_exists( "{$base}/page-{$HTML->page}.php" ) ){
+		$HTML->error404 = FALSE;
+		$HTML->file = "{$base}/page-{$HTML->page}.php";
+	}
+	else{
+		$HTML->error404 = TRUE;
+		$HTML->file = "{$base}/" . FALLBACK_PAGE . '.php';
+	}
+
 }

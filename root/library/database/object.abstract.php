@@ -9,7 +9,7 @@
 abstract class Entity_Object {
 	
 	/**
-	 * Identifica l'ok di una transaction
+	 * Ok transaction in PDO
 	 */
 	var $transaction_ok = '00000';
 	

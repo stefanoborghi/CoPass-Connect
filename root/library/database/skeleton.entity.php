@@ -31,7 +31,7 @@ class skeleton extends Entity_Object
     * Fake method
 	* @access public
 	*/
-	public function fakeMethod($id_table){
+	public function fake_method($id_table){
 		$query = "SELECT * FROM ".self::TABLE_NAME." WHERE id=:id";
 		$stpdo = $this->database->mypdo->prepare($query);
 		$stpdo->bindParam(':id', $id_table, PDO::PARAM_INT);

@@ -16,7 +16,7 @@ class database
 	const TYPE_SQLITE = 'sqllite';
 	
 	/**
-	* Costruttore di classe
+	* Class construct
 	*
 	* @param $u username
 	* @param $p password
@@ -25,7 +25,7 @@ class database
 	* @return
 	*/
 	public function __construct($u, $p, $h, $db, $type){
-		/* istanzio un oggetto PDO per l'astrazione dal DB */
+		/* PDO object instantiation */
 		switch($type){
 			case self::TYPE_MYSQL:
 				$dns = "mysql:host=".$h.";dbname=".$db;
@@ -47,7 +47,7 @@ class database
 			$this->mypdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}
 		catch(PDOException $e) {
-			echo 'insert_db -> Errore di connessione: '.$e->getMessage();
+			echo 'database.class.php -> Connect error: '.$e->getMessage();
 			die();
 		}
 	}
