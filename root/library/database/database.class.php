@@ -9,7 +9,6 @@
 class database
 {
 	var $mypdo = NULL;
-	var $transaction_ok = '00000';
 	
 	const TYPE_MYSQL = 'mysql';
 	const TYPE_MYSQLI = 'mysqli';
