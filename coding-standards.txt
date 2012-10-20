@@ -18,10 +18,11 @@ Alcune semplici regole per scrivere insieme un codice leggibile.
  *	usare <?php invece di <?
  *	se non necessario, non chiudere i files php con ?> per evitare output indesiderato
  *
- *	nei testi, usare {'} quando il testo non deve essere analizzato, altrimenti {"}
+ *	nei testi, usare {'} quando il testo non deve essere interpretato, altrimenti {"}
+ *	le variabili nelle stringhe interpretate devono essere racchiuse in parentesi {}
  *		-	echo '<a href="/static/link" title="Yeah yeah!">Link name</a>';
  *		-	echo "<a href='{$link}' title='$linktitle'>$linkname</a>";
- *	usare i {tab} invece degli spazi per indentare
+ *	usare i {tab} invece degli spazi per indentare. {tab} == '    ' ( 4 spazi )
  */
 
 
