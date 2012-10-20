@@ -12,8 +12,16 @@
 #
 #■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■□
 
+require_once( DIR_LIBRARY	.	'/Klogger.php' );
+/* CLASSI INTEFACCIA DATABASE */
+require_once( DIR_DATABASE	.	'/database.class.php' );
+require_once( DIR_DATABASE	.	'/object.abstract.php' );
+//ENTITIES
+require_once( DIR_DATABASE	.	'/skeleton.entity.php' );
+
+/* UTILITA' */
 require_once( DIR_LIBRARY	.	'/sanitize.php' );
+/* CONTROLLER */
 require_once( DIR_LIBRARY	.	'/navigator.php' );
+/* TEMPLATE */
 require_once( DIR_LIBRARY	.	'/template.php' );
-
-
