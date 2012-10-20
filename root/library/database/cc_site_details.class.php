@@ -97,7 +97,7 @@ class cc_site extends Entity_Object
 			return $array;			
 		}
 		else{
-			$this->toLog("Errore in cc_site::getparam:".$query." - id is empty", KLogger::ERROR);
+			$this->toLog("Errore in cc_site::getparam:".$query, KLogger::ERROR);
 		}
 	}
 }
