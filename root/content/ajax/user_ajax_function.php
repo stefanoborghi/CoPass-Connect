@@ -7,10 +7,10 @@ function ajax_user_balance(){
 	$id_user = isset($_REQUEST['id_user']) ? intval($_REQUEST['id_user']) : NULL;
 	
 	if(!empty($id_user)){
-		$userData = array();
+		$userData = array('id' => $id_user);
 		
 		$balanceData = array();
-		$balanceData[] = array('where' => 'cowo360', 'payee' => 'acquisto credito ['.$id_user.']', 'status' => 2, 'amount' => 100, 'date' => '12/08/2012', 'credit' => 300);
+		$balanceData[] = array('where' => 'cowo360', 'payee' => 'acquisto credito', 'status' => 2, 'amount' => 100, 'date' => '12/08/2012', 'credit' => 300);
 		$balanceData[] = array('where' => 'mutinerie', 'payee' => '2 days', 'status' => 2, 'amount' => -20, 'date' => '5/09/2012', 'credit' => 280);
 		$balanceData[] = array('where' => 'cowo360', 'payee' => '2 days', 'status' => 1, 'amount' => -30, 'date' => '7/09/2012', 'credit' => 250);
 	}else{

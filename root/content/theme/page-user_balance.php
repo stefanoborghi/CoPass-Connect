@@ -31,6 +31,12 @@
 	<script>
 	$(document).ready(function() {
 		
+		getUserBalance();
+
+	});
+	
+	function getUserBalance(){
+		
 		$.getJSON(
          ajaxurl,
 		 { 'action': 'user_balance', 'id_user': $('#user').val() },
@@ -53,8 +59,9 @@
  
          }
        );
-
-	});
+		
+	}
+	
 	</script>
 
 <?php get_footer(); ?>
