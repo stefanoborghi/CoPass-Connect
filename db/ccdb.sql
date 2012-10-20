@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 20, 2012 at 04:08 PM
+-- Generation Time: Oct 20, 2012 at 04:51 PM
 -- Server version: 5.5.24
 -- PHP Version: 5.3.10-1ubuntu3.4
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `ccdb`
 --
-CREATE DATABASE `ccdb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `ccdb`;
 
 -- --------------------------------------------------------
 
@@ -155,6 +153,7 @@ CREATE TABLE IF NOT EXISTS `tba_user_account` (
   `surname` varchar(256) NOT NULL,
   `idcard` varchar(100) NOT NULL,
   `id_card_type` varchar(45) NOT NULL,
+  `cc_profile` varchar(45) NOT NULL COMMENT 'cc user profile',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Application login account' AUTO_INCREMENT=1 ;
@@ -173,19 +172,6 @@ CREATE TABLE IF NOT EXISTS `tba_user_details` (
   UNIQUE KEY `value_UNIQUE` (`value`),
   KEY `fk_tba_user_details_tba_user_account1_idx` (`tba_user_account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='User details';
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tba_user_profile`
---
-
-CREATE TABLE IF NOT EXISTS `tba_user_profile` (
-  `tba_user_profile_type_id` int(11) NOT NULL,
-  `tba_user_account_id` int(11) NOT NULL,
-  KEY `fk_tba_user_profile_tba_user_account1_idx` (`tba_user_account_id`),
-  KEY `idx_tba_user_profile_01` (`tba_user_profile_type_id`,`tba_user_account_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='User profile\nUser profile';
 
 --
 -- Constraints for dumped tables
@@ -231,12 +217,6 @@ ALTER TABLE `tba_transactions_log`
 --
 ALTER TABLE `tba_user_details`
   ADD CONSTRAINT `fk_tba_user_details_tba_user_account1` FOREIGN KEY (`tba_user_account_id`) REFERENCES `tba_user_account` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `tba_user_profile`
---
-ALTER TABLE `tba_user_profile`
-  ADD CONSTRAINT `fk_tba_user_profile_tba_user_account1` FOREIGN KEY (`tba_user_account_id`) REFERENCES `tba_user_account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
