@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 21, 2012 at 12:59 PM
+-- Generation Time: Oct 21, 2012 at 01:35 PM
 -- Server version: 5.5.24
 -- PHP Version: 5.3.10-1ubuntu3.4
 
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `tba_cc_site` (
 --
 
 INSERT INTO `tba_cc_site` (`id`, `tba_user_account_id`, `name`, `fiscal_id`, `fiscal_id_type`, `address`, `status`, `email`, `day_pass`, `note`, `card_cost`) VALUES
-(1, 2, 'cowo360', '12354890098', 'P.I.', 'Via Vacuna 96 00157 Roma', 'enabled', '', 0, NULL, NULL);
+(1, 2, 'cowo360', '12354890098', 'P.I.', 'Via Vacuna 96 00157 Roma', 'enabled', 'cowo360site@cowo360.org', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -201,8 +201,8 @@ CREATE TABLE IF NOT EXISTS `tba_transactions_log` (
 --
 
 INSERT INTO `tba_transactions_log` (`id`, `tba_cards_id`, `tba_cc_site_id_start`, `type`, `tba_cc_site_id_end`, `credits`, `cause`, `sysdate`, `status`) VALUES
-(1, 'TYPE0H501F3456', 1, 'ADD', 1, 100, NULL, '2012-10-20 17:19:49', 'active'),
-(2, 'TYPE0H501F3456', 1, 'MINUS', 1, 50, NULL, '2012-10-20 17:25:38', 'active');
+(1, 'TYPE0H501F3456', 1, 'credit charge', 1, 100, 'credit charge', '2012-10-20 17:19:49', 'open'),
+(2, 'TYPE0H501F3456', 1, 'credit discharge', 1, 50, 'credit discharge', '2012-10-20 17:25:38', 'open');
 
 -- --------------------------------------------------------
 
