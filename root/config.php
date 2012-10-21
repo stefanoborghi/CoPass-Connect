@@ -61,8 +61,8 @@ define( 'DEFAULT_KEYWORDS',		'' );
 
 define( 'DB_TYPE', 'MySQL' );   #NON MODIFICARE
 
-define( 'DB_NAME', '' );        #INSERIRE VALORI ALL'OCCORRENZA
-define( 'DB_USER', '' );
-define( 'DB_PASS', '' );
-define( 'DB_HOST', '' );
+define( 'DB_NAME', 'ccdb' );        #INSERIRE VALORI ALL'OCCORRENZA
+define( 'DB_USER', 'ccdb' );
+define( 'DB_PASS', 'ccdb' );
+define( 'DB_HOST', 'localhost' );
 
