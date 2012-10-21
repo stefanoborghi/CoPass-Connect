@@ -1,15 +1,6 @@
 <?php get_header(); ?>
-	<!--[if lt IE 9]>
-		<div class="ui-state-error ui-corner-all">
-			<p>
-				Il tuo browser è <em>obsoleto!</em><br />
-				Alcune delle funzionalità in area di amministrazione richiedono un browser più moderno.<br />
-				Se non puoi aggiornare Internet Explorer alla versione 9 o successiva (su Windows XP non si può), puoi provare un browser gratuito come Firefox (<a href="http://www.mozilla.org/it/firefox/new/">link al sito)</a>.
-			</p>
-		</div>
-	<![endif]-->
 
-	<div id="loginbox" class="auto">
+	<div>
 		<h2>User balance</h2>
 			<input type="text" value="1" id="user" />
 			<table width="80%" border="0" align="center" cellpadding="2" cellspacing="2" id="user_balance">

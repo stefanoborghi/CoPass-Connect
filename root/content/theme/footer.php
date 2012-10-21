@@ -1,7 +1,8 @@
 		</div>
 	</div>
 
-	<footer id="footer" class="container" style="display:none;">
-			<p id="footer-upgrade" class="alignright"></p>
+	<footer id="footer" class="container">
 		<div class="clear"></div>
 	</footer>
+</body>
+</html>

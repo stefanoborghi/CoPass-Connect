@@ -1,7 +1,8 @@
 <?php get_header(); ?>
 
-	<div id="loginbox" class="auto box">
-		<h2>ERRORE 404</h2>
-	</div>
+<div class="alert alert-error">
+	<p><b>Warning, ERROR 404</b></p>
+	Nothing to show here, but you can try other pages (upper right menu).
+</div>
 
 <?php get_footer(); ?>
