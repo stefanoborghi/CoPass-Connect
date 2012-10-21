@@ -21,31 +21,24 @@ if ( empty( $current_screen ) )
 get_admin_page_title();
 $title = esc_html( strip_tags( $title ) );
 
-if ( is_network_admin() )
-	$admin_title = __( 'Network Admin' );
-elseif ( is_user_admin() )
-	$admin_title = __( 'Global Dashboard' );
-else
-	$admin_title = get_bloginfo( 'name' );
+if ( is_network_admin() )	$admin_title = __( 'Network Admin' );
+elseif ( is_user_admin() )	$admin_title = __( 'Global Dashboard' );
+else						$admin_title = get_bloginfo( 'name' );
 
-if ( $admin_title == $title )
-	$admin_title = sprintf( __( '%1$s &#8212; WordPress' ), $title );
-else
-	$admin_title = sprintf( __( '%1$s &lsaquo; %2$s &#8212; WordPress' ), $title, $admin_title );
-
+if ( $admin_title == $title )	$admin_title = sprintf( __( '%1$s &#8212; WordPress' ), $title );
+else							$admin_title = sprintf( __( '%1$s &lsaquo; %2$s &#8212; WordPress' ), $title, $admin_title );
 $admin_title = apply_filters( 'admin_title', $admin_title, $title );
 
 wp_user_settings();
 
-_wp_admin_html_begin();
 ?>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>'>
+<head>
+<meta charset="<?php echo get_option('blog_charset'); ?>" />
+
 <title><?php echo $admin_title; ?></title>
 <?php
-
-wp_enqueue_style( 'colors' );
-wp_enqueue_style( 'ie' );
-wp_enqueue_script('utils');
-
 $admin_body_class = preg_replace('/[^a-z0-9_-]+/i', '-', $hook_suffix);
 ?>
 <script type="text/javascript">
@@ -76,9 +69,6 @@ do_action('admin_head');
 if ( get_user_setting('mfold') == 'f' )
 	$admin_body_class .= ' folded';
 
-if ( is_admin_bar_showing() )
-	$admin_body_class .= ' admin-bar';
-
 if ( is_rtl() )
 	$admin_body_class .= ' rtl';
 
@@ -94,47 +84,39 @@ $admin_body_class .= ' no-customize-support';
 
 ?>
 </head>
-<body class="wp-admin no-js <?php echo apply_filters( 'admin_body_class', '' ) . " $admin_body_class"; ?>">
-<script type="text/javascript">
-	document.body.className = document.body.className.replace('no-js','js');
-</script>
+<body class="wp-admin <?php echo apply_filters( 'admin_body_class', '' ) . " $admin_body_class"; ?>">
 
-<?php
-// If the customize-loader script is enqueued, make sure the customize
-// body classes are correct as early as possible.
-if ( wp_script_is( 'customize-loader', 'queue' ) && current_user_can( 'edit_theme_options' ) )
-	wp_customize_support_script();
-?>
 
-<div id="wpwrap">
-<?php require(ABSPATH . 'wp-admin/menu-header.php'); ?>
-<div id="wpcontent">
+	<div class="navbar navbar-static-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="brand" href="#">CoPass Connect</a>
+				<ul class="nav">
+					<li>
+						<a href="<?php admin_url( '?page=dashboard' ); ?>">Dashboard</a>
+					</li>
+				</ul>
+				<ul class="nav pull-right">
+					<li><a href="<?php echo wp_logout_url(); ?>">LogOut</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script>jQuery(function($) { $(".dropdown-toggle").dropdown(); })</script>
 
-<?php
-do_action('in_admin_header');
-?>
+	<header class="container">
+		<?php
+			if ( is_network_admin() )	do_action('network_admin_notices');
+			elseif ( is_user_admin() )	do_action('user_admin_notices');
+			else						do_action('admin_notices');
+			do_action('all_admin_notices');
+		?>
+		<div class="page-header">
+			<h1><?php bloginfo('name'); ?></h1>
+		</div>
+	</header>
 
-<div id="wpbody">
-<?php
-unset($title_class, $blog_name, $total_update_count, $update_title);
+	<div id="container" class="container">
+		<div>
 
-$current_screen->set_parentage( $parent_file );
 
-?>
-
-<div id="wpbody-content">
-<?php
-
-$current_screen->render_screen_meta();
-
-if ( is_network_admin() )
-	do_action('network_admin_notices');
-elseif ( is_user_admin() )
-	do_action('user_admin_notices');
-else
-	do_action('admin_notices');
-
-do_action('all_admin_notices');
-
-if ( $parent_file == 'options-general.php' )
-	require(ABSPATH . 'wp-admin/options-head.php');
