@@ -141,11 +141,6 @@ else if ( isset($pagenow) )
 
 set_current_screen();
 
-<<<<<<< HEAD
-=======
-
-#if ( 'options' != $current_screen->base ){
-
 
 if ( isset($plugin_page) ) {
 	if ( $page_hook ) {
@@ -185,7 +180,6 @@ else
 
 exit;
 
->>>>>>> wp admin area
 // Handle plugin admin pages.
 if ( isset($plugin_page) ) {
 	if ( $page_hook ) {
@@ -216,11 +210,6 @@ if ( isset($plugin_page) ) {
 
 	exit();
 } else if (isset($_GET['import'])) {
-<<<<<<< HEAD
-
-=======
-echo 'aa';
->>>>>>> wp admin area
 	$importer = $_GET['import'];
 
 	if ( ! current_user_can('import') )

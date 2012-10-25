@@ -66,9 +66,6 @@ do_action('admin_print_scripts');
 do_action("admin_head-$hook_suffix");
 do_action('admin_head');
 
-if ( get_user_setting('mfold') == 'f' )
-	$admin_body_class .= ' folded';
-
 if ( is_rtl() )
 	$admin_body_class .= ' rtl';
 
@@ -79,9 +76,6 @@ $admin_body_class .= ' locale-' . sanitize_html_class( strtolower( str_replace( 
 
 if ( wp_is_mobile() )
 	$admin_body_class .= ' mobile';
-
-$admin_body_class .= ' no-customize-support';
-
 ?>
 </head>
 <body class="wp-admin <?php echo apply_filters( 'admin_body_class', '' ) . " $admin_body_class"; ?>">
@@ -95,8 +89,22 @@ $admin_body_class .= ' no-customize-support';
 					<li>
 						<a href="<?php admin_url( '?page=dashboard' ); ?>">Dashboard</a>
 					</li>
+                    <li class="dropdown">
+						<a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Sites <b class="caret"></b></a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+							<li><a tabindex="-1" href="#">CO-SITE 1</a></li>
+							<li><a tabindex="-1" href="#">CO-SITE 2</a></li>
+							<li><a tabindex="-1" href="#">CO-SITE 3</a></li>
+						</ul>
+                    </li>
 				</ul>
 				<ul class="nav pull-right">
+                    <li class="dropdown">
+						<a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+							<li><a tabindex="-1" href="#" onclick="showmodal()">Add User</a></li>
+						</ul>
+                    </li>
 					<li><a href="<?php echo wp_logout_url(); ?>">LogOut</a></li>
 				</ul>
 			</div>
@@ -112,7 +120,7 @@ $admin_body_class .= ' no-customize-support';
 			do_action('all_admin_notices');
 		?>
 		<div class="page-header">
-			<h1><?php bloginfo('name'); ?></h1>
+			<h1>CO-SITE</h1>
 		</div>
 	</header>
 
